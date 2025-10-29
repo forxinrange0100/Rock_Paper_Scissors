@@ -5,7 +5,7 @@ win_states = ["P", "S", "R"]
 
 two_step_states = [a+b for a in states for b in states]
 
-def get_td_2(opponent_history):
+def get_td(opponent_history):
     s = ''.join(opponent_history)
     eps = 0.1
 
@@ -44,10 +44,9 @@ def player(prev_play, opponent_history=[]):
     pi = np.zeros(len(two_step_states))
     pi[two_step_states.index(last_pair)] = 1
 
-    A = get_td_2(opponent_history)
+    A = get_td(opponent_history)
 
     pi_next = pi @ A 
-    pi_next /= pi_next.sum()
 
     threshold = 0.34
     if np.max(pi_next) > threshold:
